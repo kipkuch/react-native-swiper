@@ -119,6 +119,7 @@ export default class extends Component {
     autoplayDirection: PropTypes.bool,
     index: PropTypes.number,
     renderPagination: PropTypes.func,
+    renderButtons: PropTypes.func,
     dotStyle: PropTypes.object,
     activeDotStyle: PropTypes.object,
     dotColor: PropTypes.string,
@@ -436,6 +437,7 @@ export default class extends Component {
       if (typeof props[prop] === 'function' &&
         prop !== 'onMomentumScrollEnd' &&
         prop !== 'renderPagination' &&
+        prop !== 'renderButtons' &&
         prop !== 'onScrollBeginDrag'
       ) {
         let originResponder = props[prop]
@@ -634,7 +636,9 @@ export default class extends Component {
           ? this.props.renderPagination(state.index, state.total, this)
           : this.renderPagination())}
         {this.renderTitle()}
-        {this.props.showsButtons && this.renderButtons()}
+        {this.props.showsButtons && (props.renderButtons
+          ? this.props.renderButtons(state.index, state.total, this)
+          : this.renderButtons())}
       </View>
     )
   }
