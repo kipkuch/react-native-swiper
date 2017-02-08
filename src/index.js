@@ -120,6 +120,7 @@ export default class extends Component {
     index: PropTypes.number,
     renderPagination: PropTypes.func,
     renderButtons: PropTypes.func,
+    shareContext:PropTypes.func,
     dotStyle: PropTypes.object,
     activeDotStyle: PropTypes.object,
     dotColor: PropTypes.string,
@@ -438,6 +439,7 @@ export default class extends Component {
         prop !== 'onMomentumScrollEnd' &&
         prop !== 'renderPagination' &&
         prop !== 'renderButtons' &&
+        prop !== 'shareContext' &&
         prop !== 'onScrollBeginDrag'
       ) {
         let originResponder = props[prop]
@@ -624,6 +626,10 @@ export default class extends Component {
       })
     } else {
       pages = <View style={pageStyle} key={0}>{children}</View>
+    }
+
+    if(this.props.shareContext) {
+      this.props.shareContext(state.index, state.total, this);
     }
 
     return (
